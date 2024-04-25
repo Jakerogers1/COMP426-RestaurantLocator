@@ -2,53 +2,75 @@
 
 # Choosey Web Application
 
-This repository contains an interactive platform for searching and reviewing businesses using the Yelp API.
+Choosey is a web application that leverages the Yelp API to provide users with business search functionality. It is built with Node.js, Express, and vanilla JavaScript for the front-end interactivity.
 
-## Project Structure
+## Directory Structure
 
-The project is divided into two main parts: the front-end and the back-end.
+- `public/`: Contains all client-facing files, including HTML, CSS, and client-side JavaScript.
+- `src/`: Contains the server-side JavaScript file for the Express application.
+- `script.js`: Contains JavaScript code for client-side logic.
 
-### Front-End
+## Getting Started
 
-The front-end is built with HTML, CSS, and vanilla JavaScript.
+### Prerequisites
 
-- `index.html`: The homepage with a search bar and navigation.
-- `search_results.html`: Displays search results.
-- `business_detail.html`: Shows detailed information about a selected business.
-- `styles.css`: Contains the styles for the web application.
+Before running the application, make sure you have Node.js installed on your system.
 
-### Back-End
-
-The back-end is a simple Express server that serves the front-end files and handles the Yelp API integration.
-
-- `app.js`: The main server file.
-- `public/`: Directory to serve static files from.
-
-## Installation
-
-To set up the project:
+### Installation
 
 1. Clone the repository:
 
-   ```bash
+   ```sh
    git clone https://github.com/your-username/choosey-webapp.git
 
    ```
 
 2. Navigate to the project directory:
 
-   ```cd choosey-webapp
+   ```sh
+   cd choosey-webapp
 
    ```
 
-3. Install dependencies:
-   ```npm install
+3. Install the required dependencies:
 
+   ```sh
+   npm install
+
+   ```
+
+4. Install the express module and node-fetch module:
+
+   ```sh
+   npm install express
+   npm install node-fetch
+
+   ```
+
+5. Create a .env file in the root directory with the following content, replacing your_yelp_api_key_here with your actual Yelp API key:
+   ```sh
+   YELP_API_KEY=your_yelp_api_key_here
    ```
 
 ## Running the Application
 
-To run the server:
-```node app.js
+To start the server, run:
 
-The front-end can be accessed by opening index.html in a web browser.
+```sh
+npm start
+
+```
+
+The application will be available at http://localhost:3000.
+
+## Testing
+
+To test the search functionality:
+
+Navigate to http://localhost:3000 in your web browser.
+Use the search form to enter a search term.
+Verify that the search results are displayed correctly.
+
+```
+
+```
