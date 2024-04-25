@@ -1,36 +1,45 @@
-# Weather and GIFs App
+# Restaurant Finder App
 
 ## Description
 
-This web application allows users to enter a city name and retrieves the current temperature and a weather-related GIF. It demonstrates the use of external APIs and Node.js for backend development.
+This web application allows users to input a city and a category of food (e.g., sushi, Italian). It then retrieves a list of nearby restaurants matching the category using the Yelp Fusion API. The app demonstrates integration with external APIs and backend development with Node.js.
 
 ## APIs Used
 
-- **OpenWeatherMap API**: Provides real-time weather data.
-- **GIPHY API**: Offers a wide range of animated GIFs, which this app uses to display GIFs that correlate with the current weather conditions.
+- **OpenWeatherMap API**: Used to get the latitude and longitude coordinates for the entered city.
+- **Yelp Fusion API**: Provides data on restaurants, including their location, rating, and category.
 
 ## Setup
 
-1. **Clone the repository**: Use `git clone` followed by the repository URL to clone the repo onto your local machine.
-2. **Install dependencies**: Navigate to the root directory of the project in your terminal and run `npm install` to install all required dependencies.
+1. **Clone the repository**: Execute `git clone` followed by the repository URL to clone it onto your local machine.
+2. **Install dependencies**: In the terminal, navigate to the root directory of the project and run `npm install` to install all required dependencies.
 3. **Set up environment variables**:
-   - Create a `.env` file in the root directory of the project.
-   - Add your OpenWeatherMap and GIPHY API keys to the `.env` file like so:
+   - Create a `.env` file in the root directory.
+   - Add your OpenWeatherMap and Yelp Fusion API keys to the `.env` file as follows:
      ```
-     OPENWEATHERMAP_API_KEY=your_openweathermap_api_key_here
-     GIPHY_API_KEY=your_giphy_api_key_here
+     OPENWEATHERMAP_API_KEY=your_openweathermap_api_key
+     YELP_API_KEY=your_yelp_api_key
      ```
-4. **Start the server**: Run `npm start` from the root directory to start the server.
-5. **Access the application**: Open your web browser and go to `http://localhost:3000` to use the application.
+4. **Start the server**: Run `npm start` to launch the server.
+5. **Access the application**: In your web browser, visit `http://localhost:3000` to interact with the app.
 
 ## Running the Application
 
-After the setup is complete and the server is running, you can interact with the application by:
+With the server up and running, use the app by:
 
-- Entering a city name in the input field.
-- Clicking the "Get Weather" button to retrieve and display the temperature and a GIF representing the current weather.
+- Typing in a city name in the designated field.
+- Selecting or entering a food category.
+- Clicking the "Find Restaurants" button to display a list of matching restaurants, presented in an attractive card layout with options to view more details on Yelp.
 
 ## Notes
 
-- The application's frontend statically serves from the `public` directory.
-- API keys are managed securely using environment variables and are not stored in the frontend code.
+- The frontend is served statically from the `public` directory.
+- API keys are securely managed through environment variables, ensuring they are not exposed in the frontend code.
+- The app now incorporates a more user-friendly interface, with restaurant information displayed in a modern card-style layout.
+
+## Future Enhancements
+
+- Implement functionality to sort or filter the restaurant results (e.g., by rating, distance, or price level).
+- Add an interactive map to show the location of the restaurants.
+- Provide user authentication for personalized experiences, like saving favorite restaurants or preferences.
+
