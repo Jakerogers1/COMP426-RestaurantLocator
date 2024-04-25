@@ -1,0 +1,14 @@
+# Dependency directories
+node_modules/
+
+# dotenv environment variables file
+.env
+
+# build directory
+/build
+
+# Ignore configuration files that may contain sensitive information.
+config.js
+
+# Ignore logs
+*.log
