@@ -1,0 +1,73 @@
+body {
+  font-family: "Arial", sans-serif;
+  background-color: #f4f4f4;
+  color: #333;
+  margin: 0;
+  padding: 20px;
+}
+
+h1 {
+  text-align: center;
+  color: #333;
+}
+
+.restaurant-card {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  display: flex;
+  margin: 20px 0;
+  overflow: hidden;
+}
+
+.restaurant-image {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+}
+
+.restaurant-info {
+  padding: 20px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.restaurant-name {
+  font-size: 1.5rem;
+  margin-bottom: 5px;
+}
+
+.restaurant-rating {
+  display: flex;
+  align-items: center;
+  font-size: 1.2rem;
+  margin-bottom: 5px;
+}
+
+.star-rating {
+  color: #ffd700; /* gold color for the star */
+}
+
+.restaurant-address,
+.restaurant-phone {
+  font-size: 1rem;
+  color: #666;
+}
+
+.yelp-link {
+  display: inline-block;
+  background-color: #d32323;
+  color: #fff;
+  padding: 10px 15px;
+  border-radius: 4px;
+  text-decoration: none;
+  text-align: center;
+  margin-top: 10px;
+  transition: background-color 0.3s;
+}
+
+.yelp-link:hover {
+  background-color: #b11212;
+}

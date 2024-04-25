@@ -1,76 +1,36 @@
-# COMP426-FinalProject
+# Weather and GIFs App
 
-# Choosey Web Application
+## Description
 
-Choosey is a web application that leverages the Yelp API to provide users with business search functionality. It is built with Node.js, Express, and vanilla JavaScript for the front-end interactivity.
+This web application allows users to enter a city name and retrieves the current temperature and a weather-related GIF. It demonstrates the use of external APIs and Node.js for backend development.
 
-## Directory Structure
+## APIs Used
 
-- `public/`: Contains all client-facing files, including HTML, CSS, and client-side JavaScript.
-- `src/`: Contains the server-side JavaScript file for the Express application.
-- `script.js`: Contains JavaScript code for client-side logic.
+- **OpenWeatherMap API**: Provides real-time weather data.
+- **GIPHY API**: Offers a wide range of animated GIFs, which this app uses to display GIFs that correlate with the current weather conditions.
 
-## Getting Started
+## Setup
 
-### Prerequisites
-
-Before running the application, make sure you have Node.js installed on your system.
-
-### Installation
-
-1. Clone the repository:
-
-   ```sh
-   git clone https://github.com/your-username/choosey-webapp.git
-
-   ```
-
-2. Navigate to the project directory:
-
-   ```sh
-   cd choosey-webapp
-
-   ```
-
-3. Install the required dependencies:
-
-   ```sh
-   npm install
-
-   ```
-
-4. Install the express module and node-fetch module:
-
-   ```sh
-   npm install express
-   npm install node-fetch
-
-   ```
-
-5. Create a .env file in the root directory with the following content, replacing your_yelp_api_key_here with your actual Yelp API key:
-   ```sh
-   YELP_API_KEY=your_yelp_api_key_here
-   ```
+1. **Clone the repository**: Use `git clone` followed by the repository URL to clone the repo onto your local machine.
+2. **Install dependencies**: Navigate to the root directory of the project in your terminal and run `npm install` to install all required dependencies.
+3. **Set up environment variables**:
+   - Create a `.env` file in the root directory of the project.
+   - Add your OpenWeatherMap and GIPHY API keys to the `.env` file like so:
+     ```
+     OPENWEATHERMAP_API_KEY=your_openweathermap_api_key_here
+     GIPHY_API_KEY=your_giphy_api_key_here
+     ```
+4. **Start the server**: Run `npm start` from the root directory to start the server.
+5. **Access the application**: Open your web browser and go to `http://localhost:3000` to use the application.
 
 ## Running the Application
 
-To start the server, run:
+After the setup is complete and the server is running, you can interact with the application by:
 
-```sh
-npm start
+- Entering a city name in the input field.
+- Clicking the "Get Weather" button to retrieve and display the temperature and a GIF representing the current weather.
 
-```
+## Notes
 
-The application will be available at http://localhost:3000.
-
-## Testing
-
-To test the search functionality:
-
-Navigate to http://localhost:3000 in your web browser.
-Use the search form to enter a search term.
-Verify that the search results are displayed correctly.
-
-```
-
-```
+- The application's frontend statically serves from the `public` directory.
+- API keys are managed securely using environment variables and are not stored in the frontend code.
