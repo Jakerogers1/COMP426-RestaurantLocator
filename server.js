@@ -1,10 +1,12 @@
 require("dotenv").config();
 const express = require("express");
-const path = require("path");
-
+const bodyParser = require('body-parser');
+const db = require('./db');
 const app = express();
 const port = 3000;
+
 app.use(express.static("public"));
+app.use(bodyParser.json());
 
 app.get("/config", (req, res) => {
   res.json({
@@ -52,6 +54,53 @@ app.get("/search-restaurants", async (req, res) => {
     console.error("API Error:", error.message);
     res.status(500).json({ error: error.message });
   }
+});
+
+app.post("/submit-review", (req, res) => {
+  const { restaurantId, rating, text } = req.body;
+  const sql = `INSERT INTO reviews (restaurantId, rating, text) VALUES (?, ?, ?)`;
+  const params = [restaurantId, rating, text];
+  db.run(sql, params, function(err) {
+    if (err) {
+      return console.error(err.message);
+      res.status(500).send(err.message);
+    }
+    res.status(201).json({ id: this.lastID, ...req.body });
+  });
+});
+
+app.get("/restaurant-details/:restaurantId", (req, res) => {
+  const { restaurantId } = req.params;
+  const sql = "SELECT * FROM restaurants WHERE id = ?";
+  const params = [restaurantId];
+  db.get(sql, params, (err, row) => {
+    if (err) {
+      console.error("Error fetching restaurant details:", err.message);
+      res.status(500).json({ error: err.message });
+      return;
+    }
+    if (row) {
+      res.json(row);
+    } else {
+      res.status(404).json({ error: "Restaurant not found" });
+    }
+  });
+});
+
+
+// Route to fetch reviews for a specific restaurant
+app.get("/reviews/:restaurantId", (req, res) => {
+  const { restaurantId } = req.params;
+  const sql = "SELECT * FROM reviews WHERE restaurantId = ?";
+  const params = [restaurantId];
+  db.all(sql, params, (err, rows) => {
+    if (err) {
+      console.error(err.message);
+      res.status(500).send(err.message);
+      return;
+    }
+    res.status(200).json(rows);
+  });
 });
 
 app.listen(port, () => {

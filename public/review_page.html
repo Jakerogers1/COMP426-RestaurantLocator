@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="stylesheet" href="style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Restaurant Reviews</title>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1 id="restaurantName">Restaurant Name</h1>
+    </header>
+    <main>
+      <img id="restaurantImage" src="" alt="Restaurant" class="restaurant-image"/>
+      <p id="restaurantDetails" class="restaurant-details"></p>
+      <div id="reviews" class="review-section"></div>
+      <section class="review-form">
+        <h2>Leave a Review</h2>
+        <textarea id="reviewText" placeholder="Your review" rows="4"></textarea>
+        <div class="star-rating">
+          <span class="star" onclick="setRating(1)">★</span>
+          <span class="star" onclick="setRating(2)">★</span>
+          <span class="star" onclick="setRating(3)">★</span>
+          <span class="star" onclick="setRating(4)">★</span>
+          <span class="star" onclick="setRating(5)">★</span>
+        </div>
+        <button onclick="submitReview()">Submit Review</button>
+      </section>
+    </main>
+  </div>
+  <script src="review_app.js"></script>
+</body>
+</html>

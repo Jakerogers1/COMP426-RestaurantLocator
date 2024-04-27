@@ -68,6 +68,82 @@ h1 {
   transition: background-color 0.3s;
 }
 
-.yelp-link:hover {
+.container {
+  max-width: 800px;
+  margin: auto;
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}
+
+header {
+  background-color: #d32323;
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+}
+
+.restaurant-details {
+  font-size: 1.1rem;
+  padding: 20px;
+  background-color: #fafafa;
+  margin: 20px 0;
+  border-left: 5px solid #d32323;
+}
+
+.review-section {
+  margin-bottom: 20px;
+}
+
+.review {
+  background-color: #fff;
+  border-bottom: 1px solid #eee;
+  padding: 10px;
+}
+
+.review-form {
+  background: #fff;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+textarea {
+  width: 100%;
+  padding: 10px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+  resize: none; /* Disables resizing of the textarea */
+}
+
+.star-rating .star {
+  cursor: pointer;
+  color: gray; /* Default state */
+  font-size: 24px;
+}
+
+.star-rating .star:hover,
+.star-rating .star:hover ~ .star {
+  color: #d32323; /* Red stars on hover */
+}
+
+button {
+  background-color: #d32323;
+  color: #ffffff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+  display: block; /* Makes it a block to take the full width of the container */
+  width: 100%;
+}
+
+button:hover {
   background-color: #b11212;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 10px;
+  }
 }
