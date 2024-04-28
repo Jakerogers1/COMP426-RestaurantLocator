@@ -20,12 +20,6 @@ h1 {
   overflow: hidden;
 }
 
-.restaurant-image {
-  width: 150px;
-  height: 150px;
-  object-fit: cover;
-}
-
 .restaurant-info {
   padding: 20px;
   flex-grow: 1;
@@ -44,10 +38,6 @@ h1 {
   align-items: center;
   font-size: 1.2rem;
   margin-bottom: 5px;
-}
-
-.star-rating {
-  color: #ffd700; /* gold color for the star */
 }
 
 .restaurant-address,
@@ -81,6 +71,7 @@ header {
   color: #fff;
   padding: 20px;
   text-align: center;
+  position: relative;
 }
 
 .restaurant-details {
@@ -93,12 +84,6 @@ header {
 
 .review-section {
   margin-bottom: 20px;
-}
-
-.review {
-  background-color: #fff;
-  border-bottom: 1px solid #eee;
-  padding: 10px;
 }
 
 .review-form {
@@ -115,15 +100,53 @@ textarea {
   resize: none; /* Disables resizing of the textarea */
 }
 
-.star-rating .star {
-  cursor: pointer;
-  color: gray; /* Default state */
-  font-size: 24px;
+.star-rating {
+  display: flex;
+  justify-content: flex-start; 
+  font-size: 24px; 
 }
 
-.star-rating .star:hover,
-.star-rating .star:hover ~ .star {
-  color: #d32323; /* Red stars on hover */
+.star-rating .star {
+  cursor: pointer;
+  color: gray; 
+  font-size: 24px; 
+}
+
+.rating .filled-stars {
+  cursor: pointer;
+  color: gold; 
+  font-size: 24px; 
+}
+
+.rating .empty-stars {
+  color: gray; 
+  font-size: 24px; 
+
+}
+
+.numeric-rating {
+  font-size: 16px;
+  color: #666;
+  padding-left: 10px;
+}
+
+.restaurant-image {
+  object-fit: auto;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+  padding: 10px;
+}
+
+.review {
+  background-color: #fff;
+  border-bottom: 1px solid #eee;
+  padding: 10px;
+}
+
+.review p {
+  margin: 5px 0; /* Add a little spacing around text */
 }
 
 button {
@@ -134,7 +157,7 @@ button {
   border-radius: 5px;
   cursor: pointer;
   margin-top: 10px;
-  display: block; /* Makes it a block to take the full width of the container */
+  display: block; 
   width: 100%;
 }
 
@@ -147,3 +170,23 @@ button:hover {
     padding: 10px;
   }
 }
+.home-button {
+  font-size: 16px; 
+  color: #b11212; 
+  background-color: #ffffff; 
+  padding: 5px 10px;
+  position: absolute; 
+  text-decoration: none;
+  top: 50%; 
+  transform: translateY(-50%); 
+  border-radius: 5px; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.home-button:hover {
+  background-color: #b11212; 
+}
+
+

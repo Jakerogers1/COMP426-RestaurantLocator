@@ -17,6 +17,8 @@ db.run(`
   );
 `);
 
+db.run('DROP TABLE reviews');
+
 db.run(`CREATE TABLE IF NOT EXISTS reviews (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   restaurantId TEXT NOT NULL,

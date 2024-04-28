@@ -69,23 +69,25 @@ app.post("/submit-review", (req, res) => {
   });
 });
 
-app.get("/restaurant-details/:restaurantId", (req, res) => {
+app.get("/restaurant-details/:restaurantId", async (req, res) => {
   const { restaurantId } = req.params;
-  const sql = "SELECT * FROM restaurants WHERE id = ?";
-  const params = [restaurantId];
-  db.get(sql, params, (err, row) => {
-    if (err) {
-      console.error("Error fetching restaurant details:", err.message);
-      res.status(500).json({ error: err.message });
-      return;
+
+  const yelpResponse = await fetch(
+    `https://api.yelp.com/v3/businesses/${restaurantId}`,
+    {
+      headers: { Authorization: `Bearer ${process.env.YELP_API_KEY}` },
     }
-    if (row) {
-      res.json(row);
-    } else {
-      res.status(404).json({ error: "Restaurant not found" });
-    }
+  );
+  const yelpData = await yelpResponse.json();
+
+  if (!yelpResponse.ok) {
+    throw new Error(
+      yelpData.error?.description || "Error fetching Yelp data."
+    );
+  }
+
+  res.json(yelpData);
   });
-});
 
 
 // Route to fetch reviews for a specific restaurant
