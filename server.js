@@ -106,31 +106,50 @@ app.get("/reviews/:restaurantId", (req, res) => {
 
 app.post("/reviews/:id/like", (req, res) => {
   const { id } = req.params;
-  const sql = "UPDATE reviews SET likes = likes + 1 WHERE id = ?";
-  const params = [id];
-
-  db.run(sql, params, function(err) {
+  const findSql = "SELECT likes, dislikes FROM reviews WHERE id = ?";
+  db.get(findSql, [id], (err, review) => {
     if (err) {
-      res.status(400).json({ error: err.message });
+      res.status(500).json({ error: err.message });
       return;
     }
-    res.json({ message: "Like added", likes: this.changes });
+    if (review.dislikes > 0) {
+      res.status(409).json({ message: "Review already disliked" });
+    } else {
+      const updateSql = "UPDATE reviews SET likes = likes + 1 WHERE id = ?";
+      db.run(updateSql, [id], function(err) {
+        if (err) {
+          res.status(400).json({ error: err.message });
+          return;
+        }
+        res.json({ message: "Like added", likes: this.changes });
+      });
+    }
   });
 });
 
 app.post("/reviews/:id/dislike", (req, res) => {
   const { id } = req.params;
-  const sql = "UPDATE reviews SET dislikes = dislikes + 1 WHERE id = ?";
-  const params = [id];
-
-  db.run(sql, params, function(err) {
+  const findSql = "SELECT likes, dislikes FROM reviews WHERE id = ?";
+  db.get(findSql, [id], (err, review) => {
     if (err) {
-      res.status(400).json({ error: err.message });
+      res.status(500).json({ error: err.message });
       return;
     }
-    res.json({ message: "Dislike added", dislikes: this.changes });
+    if (review.likes > 0) {
+      res.status(409).json({ message: "Review already liked" });
+    } else {
+      const updateSql = "UPDATE reviews SET dislikes = dislikes + 1 WHERE id = ?";
+      db.run(updateSql, [id], function(err) {
+        if (err) {
+          res.status(400).json({ error: err.message });
+          return;
+        }
+        res.json({ message: "Dislike added", dislikes: this.changes });
+      });
+    }
   });
 });
+
 
 
 

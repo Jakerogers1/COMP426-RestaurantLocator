@@ -1,5 +1,5 @@
 body {
-  font-family: "Arial", sans-serif;
+  font-family: "Garamond", serif;
   background-color: #f4f4f4;
   color: #333;
   margin: 0;
@@ -97,7 +97,7 @@ textarea {
   padding: 10px;
   border-radius: 4px;
   border: 1px solid #ddd;
-  resize: none; /* Disables resizing of the textarea */
+  resize: none;
 }
 
 .star-rating {
@@ -211,4 +211,5 @@ button:hover {
 .review-button:hover {
   background-color: #d32323;
 }
+
 

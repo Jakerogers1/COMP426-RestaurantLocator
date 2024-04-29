@@ -91,7 +91,8 @@ document.addEventListener("DOMContentLoaded", () => {
     fetch(`/reviews/${restaurantId}`)
       .then(response => response.json())
       .then(reviews => {
-        const reviewsHtml = reviews.map(review => `
+        const reviewsHtml = reviews.map(review => 
+          `
           <div class="review">
             <div class="rating">
               <span class="filled-stars">${'★'.repeat(review.rating)}</span>
@@ -111,7 +112,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function likeReview(id) {
-    const restaurantId = window.location.search.split('=')[1]; // Get restaurant ID from URL
+    const restaurantId = window.location.search.split('=')[1]; 
     fetch(`/reviews/${id}/like`, { method: 'POST' })
       .then(() => {
         fetchAndDisplayReviews(restaurantId); 
@@ -119,7 +120,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   
   function dislikeReview(id) {
-    const restaurantId = window.location.search.split('=')[1]; // Get restaurant ID from URL
+    const restaurantId = window.location.search.split('=')[1];
     fetch(`/reviews/${id}/dislike`, { method: 'POST' })
       .then(() => {
         fetchAndDisplayReviews(restaurantId); 
@@ -134,7 +135,7 @@ document.addEventListener("DOMContentLoaded", () => {
           .then(response => response.json())
           .then(data => {
             alert('Review liked!');
-            location.reload();  // Reload to update the like count
+            location.reload();
           })
           .catch(error => console.error('Error liking the review:', error));
       });
@@ -147,7 +148,7 @@ document.addEventListener("DOMContentLoaded", () => {
           .then(response => response.json())
           .then(data => {
             alert('Review disliked!');
-            location.reload();  // Reload to update the dislike count
+            location.reload();  
           })
           .catch(error => console.error('Error disliking the review:', error));
       });
