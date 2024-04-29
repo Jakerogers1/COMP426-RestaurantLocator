@@ -62,7 +62,6 @@ app.post("/submit-review", (req, res) => {
   const params = [restaurantId, rating, text];
   db.run(sql, params, function(err) {
     if (err) {
-      return console.error(err.message);
       res.status(500).send(err.message);
     }
     res.status(201).json({ id: this.lastID, ...req.body });
@@ -95,15 +94,46 @@ app.get("/reviews/:restaurantId", (req, res) => {
   const { restaurantId } = req.params;
   const sql = "SELECT * FROM reviews WHERE restaurantId = ?";
   const params = [restaurantId];
-  db.all(sql, params, (err, rows) => {
+  db.all(sql, params, (err, reviews) => {
     if (err) {
       console.error(err.message);
       res.status(500).send(err.message);
       return;
     }
-    res.status(200).json(rows);
+    res.json(reviews);
   });
 });
+
+app.post("/reviews/:id/like", (req, res) => {
+  const { id } = req.params;
+  const sql = "UPDATE reviews SET likes = likes + 1 WHERE id = ?";
+  const params = [id];
+
+  db.run(sql, params, function(err) {
+    if (err) {
+      res.status(400).json({ error: err.message });
+      return;
+    }
+    res.json({ message: "Like added", likes: this.changes });
+  });
+});
+
+app.post("/reviews/:id/dislike", (req, res) => {
+  const { id } = req.params;
+  const sql = "UPDATE reviews SET dislikes = dislikes + 1 WHERE id = ?";
+  const params = [id];
+
+  db.run(sql, params, function(err) {
+    if (err) {
+      res.status(400).json({ error: err.message });
+      return;
+    }
+    res.json({ message: "Dislike added", dislikes: this.changes });
+  });
+});
+
+
+
 
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);

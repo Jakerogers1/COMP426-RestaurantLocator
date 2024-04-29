@@ -146,24 +146,31 @@ textarea {
 }
 
 .review p {
-  margin: 5px 0; /* Add a little spacing around text */
+  margin: 5px 0; 
 }
 
 button {
   background-color: #d32323;
-  color: #ffffff;
   border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  cursor: pointer;
+  display: inline-block; 
+  color: #fff;
+  padding: 10px 15px;
+  border-radius: 4px;
+  text-decoration: none;
+  text-align: center;
   margin-top: 10px;
-  display: block; 
-  width: 100%;
 }
 
 button:hover {
-  background-color: #b11212;
+  background-color: #b11212; 
 }
+
+.like-button, .dislike-button {
+  color: #fff;
+  margin-right: 10px; 
+  box-shadow: 1px 1px 3px #666; 
+}
+
 
 @media (max-width: 768px) {
   .container {
