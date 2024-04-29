@@ -189,4 +189,19 @@ button:hover {
   background-color: #b11212; 
 }
 
+.review-button {
+  display: inline-block;
+  background-color: #d32323;
+  color: #fff;
+  padding: 10px 15px;
+  border-radius: 4px;
+  text-decoration: none;
+  text-align: center;
+  margin-top: 10px;
+  transition: background-color 0.3s;
+}
+
+.review-button:hover {
+  background-color: #d32323;
+}
 

@@ -13,9 +13,15 @@
     <input type="text" id="city" name="city" />
     <label for="category">Choose a food category:</label>
     <input type="text" id="category" name="category" />
-    <button id="findRestaurantsButton" onclick="fetchRestaurants()" disabled>
-      Find Restaurants
-    </button>
+    <button id="findRestaurantsButton" onclick="fetchRestaurants()" disabled>Find Restaurants</button>
+    <label for="sort">Sort by:</label>
+    <select id="sort">
+      <option value="rating">Rating</option>
+      <option value="distance">Distance</option>
+      <option value="priceLowHigh">Price (Low to High)</option>
+      <option value="priceHighLow">Price (High to Low)</option>
+    </select>
+    <button id="sortButton" onclick="sortRestaurants()">Sort</button>
   </div>
   <div id="results" class="restaurant-list"></div>
   <div id="reviewForm" style="display:none;">
