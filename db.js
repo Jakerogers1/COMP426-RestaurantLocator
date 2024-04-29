@@ -20,7 +20,9 @@ db.run(`CREATE TABLE IF NOT EXISTS reviews (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   restaurantId TEXT NOT NULL,
   rating INTEGER NOT NULL,
-  text TEXT NOT NULL
+  text TEXT NOT NULL,
+  likes INTEGER DEFAULT 0,
+  dislikes INTEGER DEFAULT 0
 )`);
 
 module.exports = db;

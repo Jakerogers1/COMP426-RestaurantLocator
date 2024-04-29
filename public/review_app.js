@@ -43,81 +43,116 @@ document.addEventListener("DOMContentLoaded", () => {
 
     stars.forEach((star, index) => {
         star.addEventListener('mouseover', () => {
-        // Highlight all stars to the left including this one
         for (let i = 0; i <= index; i++) {
-            stars[i].style.color = '#d32323'; // Highlight color
+            stars[i].style.color = '#d32323'; 
         }
         for (let i = index + 1; i < stars.length; i++) {
-            stars[i].style.color = 'gray'; // Default color
+            stars[i].style.color = 'gray'; 
         }
         });
 
         star.addEventListener('mouseout', () => {
         // Reset all stars on mouse out
         stars.forEach((s, idx) => {
-            s.style.color = idx < currentRating ? '#ffd700' : 'gray'; // Reset based on current rating
+            s.style.color = idx < currentRating ? '#ffd700' : 'gray'; 
         });
         });
 
         star.addEventListener('click', () => {
-        currentRating = index + 1; // Set the current rating
+        currentRating = index + 1; 
         });
     });
-    // Parse the restaurant ID from the URL query string
     const queryParams = new URLSearchParams(window.location.search);
     const restaurantId = queryParams.get('restaurantId');
   
-    // Fetch restaurant details and update the page
-    // Fetch restaurant details and update the page
     fetch(`/restaurant-details/${restaurantId}`) 
     .then(response => response.json())
     .then(data => {
-    // Check for the necessary data and its structure
     if (data && data.id && data.name && data.location && data.display_phone && data.image_url) {
         document.getElementById('restaurantName').textContent = data.name || 'Restaurant Name';
         document.getElementById('restaurantImage').src = data.image_url || 'default-image-placeholder.png';
-        // Make sure to reference the address and phone correctly
         document.getElementById('restaurantDetails').textContent = `${data.location.address1 || 'Address'}, ${data.display_phone || 'Phone'}`;
     } else {
-        // Handle errors or incomplete data
         console.error('Invalid restaurant data received:', data);
         document.getElementById('restaurantName').textContent = 'Restaurant Details Not Found';
         document.getElementById('restaurantImage').style.display = 'none';
         document.getElementById('restaurantDetails').textContent = 'No details available for this restaurant.';
     }
-    // Fetch and display reviews
     fetchAndDisplayReviews(restaurantId);
     })
     .catch(error => {
     console.error('Error fetching restaurant details:', error);
     document.getElementById('restaurantName').textContent = 'Error Loading Restaurant Details';
     document.getElementById('restaurantDetails').textContent = 'Please try again later.';
-    });
-
-
-    function fetchAndDisplayReviews(restaurantId) {
-        fetch(`/reviews/${restaurantId}`)
-          .then(response => response.json())
-          .then(reviews => {
-            const reviewsHtml = reviews.map(review => {
-              const filledStars = '★'.repeat(review.rating);
-              const emptyStars = '★'.repeat(5 - review.rating);
-              return `
-                <div class="review">
-                  <div class="rating">
-                    <span class="filled-stars">${filledStars}</span><span class="empty-stars">${emptyStars}</span>
-                    <span class="numeric-rating">(${review.rating})</span>
-                  </div>
-                  <p>${review.text}</p>
-                </div>
-              `;
-            }).join('');
-            document.getElementById('reviews').innerHTML = reviewsHtml;
-          })
-          .catch(error => {
-            console.error('Failed to fetch reviews:', error);
-          });
-      }      
+    });     
   });
+
+  function fetchAndDisplayReviews(restaurantId) {
+    fetch(`/reviews/${restaurantId}`)
+      .then(response => response.json())
+      .then(reviews => {
+        const reviewsHtml = reviews.map(review => `
+          <div class="review">
+            <div class="rating">
+              <span class="filled-stars">${'★'.repeat(review.rating)}</span>
+              <span class="empty-stars">${'★'.repeat(5 - review.rating)}</span>
+              <span class="numeric-rating">(${review.rating})</span>
+            </div>
+            <p>${review.text}</p>
+            <button class="like-button" onclick="likeReview(${review.id})">Like (${review.likes})</button>
+            <button class="dislike-button" onclick="dislikeReview(${review.id})">Dislike (${review.dislikes})</button>
+          </div>
+        `).join('');
+        document.getElementById('reviews').innerHTML = reviewsHtml;
+      })
+      .catch(error => {
+        console.error('Failed to fetch reviews:', error);
+      });
+  }
+
+  function likeReview(id) {
+    const restaurantId = window.location.search.split('=')[1]; // Get restaurant ID from URL
+    fetch(`/reviews/${id}/like`, { method: 'POST' })
+      .then(() => {
+        fetchAndDisplayReviews(restaurantId); 
+      });
+  }
+  
+  function dislikeReview(id) {
+    const restaurantId = window.location.search.split('=')[1]; // Get restaurant ID from URL
+    fetch(`/reviews/${id}/dislike`, { method: 'POST' })
+      .then(() => {
+        fetchAndDisplayReviews(restaurantId); 
+      });
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll('.like-button').forEach(button => {
+      button.addEventListener('click', function() {
+        const reviewId = this.dataset.reviewId;
+        fetch(`/reviews/${reviewId}/like`, { method: 'POST' })
+          .then(response => response.json())
+          .then(data => {
+            alert('Review liked!');
+            location.reload();  // Reload to update the like count
+          })
+          .catch(error => console.error('Error liking the review:', error));
+      });
+    });
+  
+    document.querySelectorAll('.dislike-button').forEach(button => {
+      button.addEventListener('click', function() {
+        const reviewId = this.dataset.reviewId;
+        fetch(`/reviews/${reviewId}/dislike`, { method: 'POST' })
+          .then(response => response.json())
+          .then(data => {
+            alert('Review disliked!');
+            location.reload();  // Reload to update the dislike count
+          })
+          .catch(error => console.error('Error disliking the review:', error));
+      });
+    });
+  });
+  
   
   
