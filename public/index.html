@@ -22,8 +22,11 @@
       <option value="priceHighLow">Price (High to Low)</option>
     </select>
     <button id="sortButton" onclick="sortRestaurants()">Sort</button>
+    <button id="toggleMapView" onclick="toggleMapView()">Map View</button>
   </div>
   <div id="results" class="restaurant-list"></div>
+  <!-- Map container, initially hidden -->
+  <div id="map" style="height: 400px; width: 100%; display: none;"></div>
   <div id="reviewForm" style="display:none;">
     <h3>Write a Review</h3>
     <input type="hidden" id="restaurantId" />

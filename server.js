@@ -12,6 +12,7 @@ app.get("/config", (req, res) => {
   res.json({
     weatherApiKey: process.env.OPENWEATHERMAP_API_KEY,
     yelpApiKey: process.env.YELP_API_KEY, // Ensure you add this in your .env file
+    googleMapsApiKey: process.env.GOOGLE_MAPS_API_KEY
   });
 });
 

@@ -212,4 +212,10 @@ button:hover {
   background-color: #d32323;
 }
 
-
+#map {
+  display: none;  /* Map is hidden initially */
+  height: 400px;  /* Adjust height as needed */
+  width: 100%;    /* Adjust width as needed */
+  margin-top: 20px;
+  border: 1px solid #ccc;
+}
