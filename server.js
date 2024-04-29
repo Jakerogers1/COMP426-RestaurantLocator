@@ -1,10 +1,12 @@
 require("dotenv").config();
 const express = require("express");
-const path = require("path");
-
+const bodyParser = require('body-parser');
+const db = require('./db');
 const app = express();
 const port = 3000;
+
 app.use(express.static("public"));
+app.use(bodyParser.json());
 
 app.get("/config", (req, res) => {
   res.json({
@@ -52,6 +54,55 @@ app.get("/search-restaurants", async (req, res) => {
     console.error("API Error:", error.message);
     res.status(500).json({ error: error.message });
   }
+});
+
+app.post("/submit-review", (req, res) => {
+  const { restaurantId, rating, text } = req.body;
+  const sql = `INSERT INTO reviews (restaurantId, rating, text) VALUES (?, ?, ?)`;
+  const params = [restaurantId, rating, text];
+  db.run(sql, params, function(err) {
+    if (err) {
+      return console.error(err.message);
+      res.status(500).send(err.message);
+    }
+    res.status(201).json({ id: this.lastID, ...req.body });
+  });
+});
+
+app.get("/restaurant-details/:restaurantId", async (req, res) => {
+  const { restaurantId } = req.params;
+
+  const yelpResponse = await fetch(
+    `https://api.yelp.com/v3/businesses/${restaurantId}`,
+    {
+      headers: { Authorization: `Bearer ${process.env.YELP_API_KEY}` },
+    }
+  );
+  const yelpData = await yelpResponse.json();
+
+  if (!yelpResponse.ok) {
+    throw new Error(
+      yelpData.error?.description || "Error fetching Yelp data."
+    );
+  }
+
+  res.json(yelpData);
+  });
+
+
+// Route to fetch reviews for a specific restaurant
+app.get("/reviews/:restaurantId", (req, res) => {
+  const { restaurantId } = req.params;
+  const sql = "SELECT * FROM reviews WHERE restaurantId = ?";
+  const params = [restaurantId];
+  db.all(sql, params, (err, rows) => {
+    if (err) {
+      console.error(err.message);
+      res.status(500).send(err.message);
+      return;
+    }
+    res.status(200).json(rows);
+  });
 });
 
 app.listen(port, () => {
