@@ -30,6 +30,16 @@ function applyDarkThemeToCards() {
     });
   }
 }
+function appplyLightThemeToCards() {
+  const cookieValue = getCookie('theme');
+  if (cookieValue === 'light') {
+    document.body.style.backgroundColor = 'white';
+    const restaurantCards = document.querySelectorAll('.restaurant-card');
+    restaurantCards.forEach(card => {
+      card.style.backgroundColor = 'lightgray';
+    });
+  }
+}
 
 
 // Function to fetch restaurants based on city and food category
@@ -96,6 +106,7 @@ function fetchRestaurants() {
           .join("");
         results.innerHTML = businessList;
         applyDarkThemeToCards(); // Apply dark theme after fetching restaurants
+        appplyLightThemeToCards();
 
       } else {
         results.innerHTML = "<p>No restaurants found.</p>";
@@ -286,6 +297,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const cookieBanner = document.getElementById("cookieBanner");
   const dismiss = document.getElementById("dismiss");
   const darkModeBtn = document.getElementById("darkMode");
+  const lightModeBtn = document.getElementById("lightMode");
 
   // Check if user has already accepted cookies
   const cookiesAccepted = localStorage.getItem("cookiesAccepted");
@@ -312,8 +324,15 @@ document.addEventListener("DOMContentLoaded", function () {
     // Set a flag in localStorage to indicate that the user has accepted cookies
     localStorage.setItem("cookiesAccepted", true);
   });
+
+  lightModeBtn.addEventListener("click", function () {
+    setCookie('theme', 'light', 30);
+    appplyLightThemeToCards();
+    cookieBanner.style.display = "none";
+    localStorage.setItem("cookiesAccepted", true);
+  })
 });
 
 
 // to delete cookies
-//setCookie('theme', 'dark', -1);
+// setCookie('theme', 'dark', -1);
