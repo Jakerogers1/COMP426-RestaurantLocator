@@ -5,9 +5,9 @@ let pendingRestaurants = []; // This will store restaurant data if the map isn't
 
 // Function to fetch API keys from the server
 function fetchConfig() {
-  fetch("/config")
-    .then(response => response.json())
-    .then(config => {
+  return fetch("/config")
+    .then((response) => response.json())
+    .then((config) => {
       weatherApiKey = config.weatherApiKey;
       yelpApiKey = config.yelpApiKey;
       googleMapsApiKey = config.googleMapsApiKey;
@@ -18,6 +18,19 @@ function fetchConfig() {
       alert("Failed to load configuration, please try reloading the page.");
     });
 }
+
+// Function to apply dark theme to restaurant cards
+function applyDarkThemeToCards() {
+  const cookieValue = getCookie('theme');
+  if (cookieValue === 'dark') {
+    document.body.style.backgroundColor = 'black';
+    const restaurantCards = document.querySelectorAll('.restaurant-card');
+    restaurantCards.forEach(card => {
+      card.style.backgroundColor = 'darkgray'; // Change to the desired dark color
+    });
+  }
+}
+
 
 // Function to fetch restaurants based on city and food category
 
@@ -58,6 +71,32 @@ function fetchRestaurants() {
         if (data.businesses[0] && data.businesses[0].coordinates) {
           updateMapLocation(data.businesses[0].coordinates.latitude, data.businesses[0].coordinates.longitude);
         }
+
+        const businessList = data.businesses
+          .map(
+            (business) => `
+              <div class="restaurant-card">
+                <img src="${business.image_url || "default-image-url.jpg"
+              }" alt="${business.name}" class="restaurant-image">
+                <div class="restaurant-info">
+                  <h2 class="restaurant-name">${business.name}</h2>
+                  <div class="restaurant-meta">
+                    <span class="restaurant-rating">${business.rating
+              } <span class="star-rating">★</span></span>
+                    <p class="restaurant-address">${business.location.address1
+              }</p>
+                    <p class="restaurant-phone">${business.display_phone}</p>
+                  </div>
+                  <a href="${business.url
+              }" target="_blank" class="yelp-link">View on Yelp</a>
+                </div>
+              </div>
+            `
+          )
+          .join("");
+        results.innerHTML = businessList;
+        applyDarkThemeToCards(); // Apply dark theme after fetching restaurants
+
       } else {
         results.innerHTML = "<p>No restaurants found.</p>";
       }
@@ -116,31 +155,31 @@ function displayRestaurants(businesses) {
   results.dataset.businesses = JSON.stringify(businesses);
 
   if (mapLoaded) {
-      businesses.forEach(business => {
-          if (business.coordinates) {
-              const marker = new google.maps.Marker({
-                  position: new google.maps.LatLng(business.coordinates.latitude, business.coordinates.longitude),
-                  map: map,
-                  title: business.name
-              });
+    businesses.forEach(business => {
+      if (business.coordinates) {
+        const marker = new google.maps.Marker({
+          position: new google.maps.LatLng(business.coordinates.latitude, business.coordinates.longitude),
+          map: map,
+          title: business.name
+        });
 
-              const infoWindow = new google.maps.InfoWindow({
-                  content: `<div class="info-window">
+        const infoWindow = new google.maps.InfoWindow({
+          content: `<div class="info-window">
                               <h3>${business.name}</h3>
                               <p>Rating: ${business.rating} stars</p>
                               <p>${business.price || "N/A"}</p>
                               <p>${business.location.address1}</p>
                               <a href="${business.url}" target="_blank">View on Yelp</a>
                             </div>`
-              });
+        });
 
-              marker.addListener('click', function() {
-                  infoWindow.open(map, marker);
-              });
-          }
-      });
+        marker.addListener('click', function () {
+          infoWindow.open(map, marker);
+        });
+      }
+    });
   } else {
-      pendingRestaurants = businesses; // Store the businesses to be processed once the map is ready
+    pendingRestaurants = businesses; // Store the businesses to be processed once the map is ready
   }
 }
 
@@ -151,20 +190,20 @@ let pendingCenter = null; // Stores pending center coordinates if map isn't read
 // Function to initialize the Google Map
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
-      center: {lat: 35.91305, lng: -79.05542}, // Default center
-      zoom: 15
+    center: { lat: 35.91305, lng: -79.05542 }, // Default center
+    zoom: 15
   });
   mapLoaded = true;
 
   // Process any restaurants that were loaded before the map was initialized
   if (pendingRestaurants.length > 0) {
-      displayRestaurants(pendingRestaurants);
-      pendingRestaurants = []; // Clear the temporary storage
+    displayRestaurants(pendingRestaurants);
+    pendingRestaurants = []; // Clear the temporary storage
   }
 
   if (pendingCenter) {
-      map.setCenter(new google.maps.LatLng(pendingCenter.lat, pendingCenter.lng));
-      pendingCenter = null; // Clear the pending center
+    map.setCenter(new google.maps.LatLng(pendingCenter.lat, pendingCenter.lng));
+    pendingCenter = null; // Clear the pending center
   }
 }
 
@@ -172,10 +211,10 @@ function initMap() {
 // Function to update the map location
 function updateMapLocation(lat, lng) {
   if (map) {
-      map.setCenter(new google.maps.LatLng(lat, lng));
-      map.setZoom(15); // Adjust the zoom level if necessary
+    map.setCenter(new google.maps.LatLng(lat, lng));
+    map.setZoom(15); // Adjust the zoom level if necessary
   } else {
-      pendingCenter = {lat: lat, lng: lng}; // Store coordinates to center later
+    pendingCenter = { lat: lat, lng: lng }; // Store coordinates to center later
   }
 }
 
@@ -199,21 +238,82 @@ function toggleMapView() {
   const mapDiv = document.getElementById('map');
   const resultsDiv = document.getElementById('results');
   if (mapDiv.style.display === 'block') {
-      mapDiv.style.display = 'none';
-      resultsDiv.style.display = 'block';
-      document.getElementById('toggleMapView').innerText = 'Map View';
+    mapDiv.style.display = 'none';
+    resultsDiv.style.display = 'block';
+    document.getElementById('toggleMapView').innerText = 'Map View';
   } else {
-      mapDiv.style.display = 'block';
-      resultsDiv.style.display = 'none';
-      document.getElementById('toggleMapView').innerText = 'List View';
-      if (!mapLoaded) {
-          loadMap(); // Initialize the map if it hasn't been loaded
-      }
+    mapDiv.style.display = 'block';
+    resultsDiv.style.display = 'none';
+    document.getElementById('toggleMapView').innerText = 'List View';
+    if (!mapLoaded) {
+      loadMap(); // Initialize the map if it hasn't been loaded
+    }
   }
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-    const restaurantButton = document.getElementById("findRestaurantsButton");
-    restaurantButton.addEventListener("click", fetchRestaurants);
-    fetchConfig(); // Fetch API keys and load map script
+  const restaurantButton = document.getElementById("findRestaurantsButton");
+  restaurantButton.addEventListener("click", fetchRestaurants);
+
+  // Check if the cookie exists
+  const cookieValue = getCookie('theme');
+  if (cookieValue === 'dark') {
+    document.body.style.backgroundColor = 'black';
+  }
+
+  fetchConfig()
+    .catch((error) => {
+      console.error("Error fetching configuration:", error);
+      // Handle errors if needed
+    });
 });
+
+// Function to read cookie value
+function getCookie(name) {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop().split(';').shift();
+}
+
+// Function to set cookie value
+function setCookie(name, value, days) {
+  const expires = new Date();
+  expires.setTime(expires.getTime() + (days * 24 * 60 * 60 * 1000));
+  document.cookie = `${name}=${value};expires=${expires.toUTCString()};path=/`;
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  const cookieBanner = document.getElementById("cookieBanner");
+  const dismiss = document.getElementById("dismiss");
+  const darkModeBtn = document.getElementById("darkMode");
+
+  // Check if user has already accepted cookies
+  const cookiesAccepted = localStorage.getItem("cookiesAccepted");
+
+  if (!cookiesAccepted) {
+    cookieBanner.style.display = "block";
+  }
+
+  // Handle click on dismiss button
+  dismiss.addEventListener("click", function () {
+    cookieBanner.style.display = "none";
+    // Set a flag in localStorage to indicate that the user has accepted cookies
+    localStorage.setItem("cookiesAccepted", true);
+  });
+
+  // Handle click on dark mode button
+  darkModeBtn.addEventListener("click", function () {
+    // Toggle dark mode by adding/removing a class to the body
+    setCookie('theme', 'dark', 30);
+    applyDarkThemeToCards();
+
+    // Hide the cookie banner after setting the dark mode cookie
+    cookieBanner.style.display = "none";
+    // Set a flag in localStorage to indicate that the user has accepted cookies
+    localStorage.setItem("cookiesAccepted", true);
+  });
+});
+
+
+// to delete cookies
+//setCookie('theme', 'dark', -1);
