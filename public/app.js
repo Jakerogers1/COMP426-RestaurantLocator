@@ -85,22 +85,19 @@ function fetchRestaurants() {
         const businessList = data.businesses
           .map(
             (business) => `
-              <div class="restaurant-card">
-                <img src="${business.image_url || "default-image-url.jpg"
-              }" alt="${business.name}" class="restaurant-image">
-                <div class="restaurant-info">
-                  <h2 class="restaurant-name">${business.name}</h2>
-                  <div class="restaurant-meta">
-                    <span class="restaurant-rating">${business.rating
-              } <span class="star-rating">★</span></span>
-                    <p class="restaurant-address">${business.location.address1
-              }</p>
-                    <p class="restaurant-phone">${business.display_phone}</p>
-                  </div>
-                  <a href="${business.url
-              }" target="_blank" class="yelp-link">View on Yelp</a>
-                </div>
+            <div class="restaurant-card">
+            <img src="${business.image_url || "default-image-url.jpg"}" alt="${business.name}" class="restaurant-image">
+            <div class="restaurant-info">
+              <h2 class="restaurant-name">${business.name}</h2>
+              <div class="restaurant-meta">
+                <span class="restaurant-rating">${business.rating} <span class="star-rating">★</span></span>
+                <p class="restaurant-address">${business.location.address1}</p>
+                <p class="restaurant-phone">${business.display_phone}</p>
+                <a href="${business.url}" target="_blank" class="yelp-link">View on Yelp</a>
+                <button onclick="showReviewForm('${business.id}')">Leave a Review</button>
               </div>
+            </div>
+          </div>
             `
           )
           .join("");
