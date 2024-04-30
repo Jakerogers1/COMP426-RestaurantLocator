@@ -1,3 +1,4 @@
+.gitignore
 # Dependency directories
 node_modules/
 
@@ -20,3 +21,7 @@ dist
 # Operating system generated files
 .DS_Store
 Thumbs.db
+
+.env
+OPENWEATHERMAP_API_KEY=4eedb8b0d16c4299d5569f2e6647ebf8
+YELP_API_KEY=kIpp0ZnthrJTosL4t0d5RLh4eBNBopeASCnyTmbGErlQhMqN_w71I9fPl06u_FnMez8GF3NhOW2XU4C7wa1PFH6Dj8rHuBPM6YBF1EAmqHzz3peCU0LgcaYO56UqZnYx
