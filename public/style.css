@@ -1,6 +1,6 @@
 body {
-  font-family: "Garamond", serif;
-  background-color: #f4f4f4;
+  font-family: "Arial", sans-serif;
+  background-color: #f5f5f5;
   color: #333;
   margin: 0;
   padding: 20px;
@@ -8,16 +8,18 @@ body {
 
 h1 {
   text-align: center;
-  color: #333;
+  font-size: 28px;
 }
 
 .restaurant-card {
-  background: #fff;
-  border-radius: 10px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  display: flex;
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
   margin: 20px 0;
-  overflow: hidden;
+  padding: 20px;
 }
 
 .restaurant-info {
@@ -26,36 +28,32 @@ h1 {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  text-align: center;
 }
 
 .restaurant-name {
-  font-size: 1.5rem;
-  margin-bottom: 5px;
+  font-size: 1.8rem;
 }
 
-.restaurant-rating {
+.restaurant-rating,
+.star-rating {
+  font-weight: bold;
+  color: #4a4e69;
+  font-size: 1.4rem;
   display: flex;
+  justify-content: center;
   align-items: center;
-  font-size: 1.2rem;
-  margin-bottom: 5px;
+}
+
+.star-rating {
+  color: #ffc107;
 }
 
 .restaurant-address,
-.restaurant-phone {
+.restaurant-phone,
+.numeric-rating {
   font-size: 1rem;
   color: #666;
-}
-
-.yelp-link {
-  display: inline-block;
-  background-color: #d32323;
-  color: #fff;
-  padding: 10px 15px;
-  border-radius: 4px;
-  text-decoration: none;
-  text-align: center;
-  margin-top: 10px;
-  transition: background-color 0.3s;
 }
 
 .container {
@@ -67,11 +65,19 @@ h1 {
 }
 
 header {
-  background-color: #d32323;
-  color: #fff;
-  padding: 20px;
+  background-color: #b11212;
+  color: #ffffff;
+  padding: 20px 0;
   text-align: center;
-  position: relative;
+  font-size: 24px;
+}
+
+nav {
+  display: flex;
+  justify-content: space-evenly;
+  padding: 10px 0;
+  background-color: #333;
+  color: #fff;
 }
 
 .restaurant-details {
@@ -109,34 +115,22 @@ textarea {
 .star-rating .star {
   cursor: pointer;
   color: gray;
-  font-size: 24px;
 }
 
 .rating .filled-stars {
   cursor: pointer;
   color: gold;
-  font-size: 24px;
 }
 
 .rating .empty-stars {
   color: gray;
-  font-size: 24px;
-
-}
-
-.numeric-rating {
-  font-size: 16px;
-  color: #666;
-  padding-left: 10px;
 }
 
 .restaurant-image {
-  object-fit: auto;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  width: 50%;
-  padding: 10px;
+  width: 100%;
+  max-height: 300px;
+  object-fit: cover;
+  border-radius: 8px;
 }
 
 .review {
@@ -151,14 +145,28 @@ textarea {
 
 button {
   background-color: #d32323;
+  font-size: 1rem; /* General font size for buttons */
   border: none;
   display: inline-block;
   color: #fff;
   padding: 10px 15px;
-  border-radius: 4px;
+  border-radius: 3px;
   text-decoration: none;
   text-align: center;
-  margin-top: 10px;
+  margin-top: 5px;
+}
+
+.yelp-link {
+  display: inline-block;
+  background-color: #d32323;
+  color: #fff;
+  font-size: 1rem; /* Specific font size for Yelp button */
+  padding: 10px 15px;
+  border-radius: 3px;
+  text-decoration: none;
+  text-align: center;
+  margin-top: 5px;
+  transition: background-color 0.3s;
 }
 
 button:hover {
@@ -171,7 +179,6 @@ button:hover {
   margin-right: 10px;
   box-shadow: 1px 1px 3px #666;
 }
-
 
 @media (max-width: 768px) {
   .container {
@@ -198,29 +205,10 @@ button:hover {
   background-color: #b11212;
 }
 
-.review-button {
-  display: inline-block;
-  background-color: #d32323;
-  color: #fff;
-  padding: 10px 15px;
-  border-radius: 4px;
-  text-decoration: none;
-  text-align: center;
-  margin-top: 10px;
-  transition: background-color 0.3s;
-}
-
-.review-button:hover {
-  background-color: #d32323;
-}
-
 #map {
   display: none;
-  /* Map is hidden initially */
   height: 400px;
-  /* Adjust height as needed */
   width: 100%;
-  /* Adjust width as needed */
   margin-top: 20px;
   border: 1px solid #ccc;
 }
@@ -230,11 +218,21 @@ button:hover {
   bottom: 0;
   left: 0;
   width: 100%;
-  background-color: #f0f0f0;
+  background-color: #f7f1e3;
   padding: 10px 20px;
-  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
   text-align: center;
+  animation: slideIn 0.5s;
   z-index: 9999;
+}
+
+@keyframes slideIn {
+  from {
+    bottom: -50px;
+  }
+  to {
+    bottom: 0;
+  }
 }
 
 .cookie-banner p {
@@ -247,7 +245,7 @@ button:hover {
 }
 
 .cookie-banner .btn.accept-cookies {
-  background-color: #007bff;
+  background-color: #b11212;
   color: #fff;
   border: none;
 }
