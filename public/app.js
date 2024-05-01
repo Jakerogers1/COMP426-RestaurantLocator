@@ -36,7 +36,7 @@ function appplyLightThemeToCards() {
     document.body.style.backgroundColor = "white";
     const restaurantCards = document.querySelectorAll(".restaurant-card");
     restaurantCards.forEach((card) => {
-      card.style.backgroundColor = "lightgray";
+      card.style.backgroundColor = "white";
     });
   }
 }
