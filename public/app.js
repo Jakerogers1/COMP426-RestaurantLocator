@@ -95,9 +95,11 @@ function fetchRestaurants() {
             <div class="restaurant-info">
               <h2 class="restaurant-name">${business.name}</h2>
               <div class="restaurant-meta">
-                <span class="restaurant-rating">${
-                  business.rating
-                } <span class="star-rating">★</span></span>
+              <p><span class="stars">${getStars(business.rating)}</span></p>
+              <span class="restaurant-distance">${(
+                business.distance / 1609.34
+              ).toFixed(2)} mi</span>
+              <span class="restaurant-price">${business.price || ""}</span>
                 <p class="restaurant-address">${business.location.address1}</p>
                 <p class="restaurant-phone">${business.display_phone}</p>
                 <a href="${
@@ -164,15 +166,11 @@ function displayRestaurants(businesses) {
           <div class="restaurant-info">
               <h2 class="restaurant-name">${business.name}</h2>
               <div class="restaurant-meta">
-                  <span class="restaurant-rating">${
-                    business.rating
-                  } stars</span>
+              <p><span class="stars">${getStars(business.rating)}</span></p>
                   <span class="restaurant-distance">${(
                     business.distance / 1609.34
                   ).toFixed(2)} mi</span>
-                  <span class="restaurant-price">${
-                    business.price || "N/A"
-                  }</span>
+                  <span class="restaurant-price">${business.price || ""}</span>
                   <p class="restaurant-address">${
                     business.location.address1
                   }</p>
@@ -209,8 +207,10 @@ function displayRestaurants(businesses) {
         const infoWindow = new google.maps.InfoWindow({
           content: `<div class="info-window">
                               <h3>${business.name}</h3>
-                              <p>Rating: ${business.rating} stars</p>
-                              <p>${business.price || "N/A"}</p>
+                              <p><span class="stars">${getStars(
+                                business.rating
+                              )}</span></p>
+                              <p>${business.price || ""}</p>
                               <p>${business.location.address1}</p>
                               <a href="${
                                 business.url
@@ -366,3 +366,31 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // to delete cookies
 // setCookie('theme', 'dark', -1);
+
+function getStars(rating) {
+  rating = Math.round(rating * 2) / 2; // Round to nearest half
+  let output = [];
+
+  // Append all the filled whole stars
+  for (var i = Math.floor(rating); i >= 1; i--)
+    output.push(
+      '<i class="fa fa-star" aria-hidden="true" style="color: gold;"></i>'
+    );
+
+  // If there is a half a star, append it
+  if (rating % 1 !== 0)
+    output.push(
+      '<i class="fa fa-star-half-o" aria-hidden="true" style="color: gold;"></i>'
+    );
+
+  // Fill the empty stars
+  for (let i = 5 - Math.ceil(rating); i >= 1; i--)
+    output.push(
+      '<i class="fa fa-star-o" aria-hidden="true" style="color: gold;"></i>'
+    );
+
+  return output.join(" ");
+}
+
+// Example usage:
+//document.getElementById("stars").innerHTML = getStars(3.6);

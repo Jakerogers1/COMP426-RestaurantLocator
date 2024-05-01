@@ -1,7 +1,7 @@
 require("dotenv").config();
 const express = require("express");
-const bodyParser = require('body-parser');
-const db = require('./db');
+const bodyParser = require("body-parser");
+const db = require("./db");
 const app = express();
 const port = 3000;
 
@@ -12,7 +12,7 @@ app.get("/config", (req, res) => {
   res.json({
     weatherApiKey: process.env.OPENWEATHERMAP_API_KEY,
     yelpApiKey: process.env.YELP_API_KEY, // Ensure you add this in your .env file
-    googleMapsApiKey: process.env.GOOGLE_MAPS_API_KEY
+    googleMapsApiKey: process.env.GOOGLE_MAPS_API_KEY,
   });
 });
 
@@ -61,7 +61,7 @@ app.post("/submit-review", (req, res) => {
   const { restaurantId, rating, text } = req.body;
   const sql = `INSERT INTO reviews (restaurantId, rating, text) VALUES (?, ?, ?)`;
   const params = [restaurantId, rating, text];
-  db.run(sql, params, function(err) {
+  db.run(sql, params, function (err) {
     if (err) {
       res.status(500).send(err.message);
     }
@@ -81,14 +81,11 @@ app.get("/restaurant-details/:restaurantId", async (req, res) => {
   const yelpData = await yelpResponse.json();
 
   if (!yelpResponse.ok) {
-    throw new Error(
-      yelpData.error?.description || "Error fetching Yelp data."
-    );
+    throw new Error(yelpData.error?.description || "Error fetching Yelp data.");
   }
 
   res.json(yelpData);
-  });
-
+});
 
 // Route to fetch reviews for a specific restaurant
 app.get("/reviews/:restaurantId", (req, res) => {
@@ -117,7 +114,7 @@ app.post("/reviews/:id/like", (req, res) => {
       res.status(409).json({ message: "Review already disliked" });
     } else {
       const updateSql = "UPDATE reviews SET likes = likes + 1 WHERE id = ?";
-      db.run(updateSql, [id], function(err) {
+      db.run(updateSql, [id], function (err) {
         if (err) {
           res.status(400).json({ error: err.message });
           return;
@@ -139,8 +136,9 @@ app.post("/reviews/:id/dislike", (req, res) => {
     if (review.likes > 0) {
       res.status(409).json({ message: "Review already liked" });
     } else {
-      const updateSql = "UPDATE reviews SET dislikes = dislikes + 1 WHERE id = ?";
-      db.run(updateSql, [id], function(err) {
+      const updateSql =
+        "UPDATE reviews SET dislikes = dislikes + 1 WHERE id = ?";
+      db.run(updateSql, [id], function (err) {
         if (err) {
           res.status(400).json({ error: err.message });
           return;
@@ -150,10 +148,6 @@ app.post("/reviews/:id/dislike", (req, res) => {
     }
   });
 });
-
-
-
-
 
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);

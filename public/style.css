@@ -35,14 +35,9 @@ h1 {
   font-size: 1.8rem;
 }
 
-.restaurant-rating,
-.star-rating {
-  font-weight: bold;
-  color: #4a4e69;
-  font-size: 1.4rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.restaurant-rating .stars {
+  color: gold; /* Adjust color to match your design preference */
+  font-size: 1.2rem; /* Adjust size as necessary */
 }
 
 .star-rating {
