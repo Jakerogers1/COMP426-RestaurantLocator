@@ -78,9 +78,6 @@ document.addEventListener("DOMContentLoaded", () => {
           data.name || "Restaurant Name";
         document.getElementById("restaurantImage").src =
           data.image_url || "default-image-placeholder.png";
-        document.getElementById("restaurantDetails").textContent = `${
-          data.location.address1 || "Address"
-        }, ${data.display_phone || "Phone"}`;
       } else {
         console.error("Invalid restaurant data received:", data);
         document.getElementById("restaurantName").textContent =

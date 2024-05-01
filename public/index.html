@@ -10,7 +10,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Find Nearby Restaurants</title>
   </head>
-
   <body>
     <div id="cookieBanner" class="cookie-banner">
       <p>This website uses cookies to ensure you get the best experience.</p>
@@ -20,31 +19,35 @@
     </div>
 
     <h1>Restaurant Finder</h1>
-    <div>
-      <label for="city">Enter a city:</label>
-      <input type="text" id="city" name="city" placeholder="e.g. Raleigh" />
-      <label for="category">Choose a food category:</label>
-      <input
-        type="text"
-        id="category"
-        name="category"
-        placeholder="e.g. Sushi"
-      />
-      <button id="findRestaurantsButton" onclick="fetchRestaurants()" disabled>
-        Find Restaurants
-      </button>
-      <label for="sort">Sort by:</label>
-      <select id="sort">
-        <option value="rating">Rating</option>
-        <option value="distance">Distance</option>
-        <option value="priceLowHigh">Price (Low to High)</option>
-        <option value="priceHighLow">Price (High to Low)</option>
-      </select>
-      <button id="sortButton" onclick="sortRestaurants()">Sort</button>
-      <button id="toggleMapView" onclick="toggleMapView()">Map View</button>
+    <div class="top-controls">
+      <div class="left-controls">
+        <label for="city">Enter a city:</label>
+        <input type="text" id="city" name="city" placeholder="e.g. Raleigh" />
+        <label for="category">Choose a food category:</label>
+        <input
+          type="text"
+          id="category"
+          name="category"
+          placeholder="e.g. Sushi"
+        />
+        <button id="findRestaurantsButton" onclick="fetchRestaurants()">
+          Find Restaurants
+        </button>
+        <button id="toggleMapView" onclick="toggleMapView()">Map View</button>
+      </div>
+      <div class="right-controls">
+        <label for="sort"></label>
+        <select id="sort">
+          <option value="rating">Rating</option>
+          <option value="distance">Distance</option>
+          <option value="priceLowHigh">Price (Low to High)</option>
+          <option value="priceHighLow">Price (High to Low)</option>
+        </select>
+        <button id="sortButton" onclick="sortRestaurants()">Sort</button>
+      </div>
     </div>
+
     <div id="results" class="restaurant-list"></div>
-    <!-- Map container, initially hidden -->
     <div id="map" style="height: 400px; width: 100%; display: none"></div>
     <div id="reviewForm" style="display: none">
       <h3>Write a Review</h3>
@@ -54,7 +57,7 @@
         <span class="star" onclick="setRating(1)">★</span>
         <span class="star" onclick="setRating(2)">★</span>
         <span class="star" onclick="setRating(3)">★</span>
-        <span class="star" onclick="setRating(4)">★</span>
+        <span the="star" onclick="setRating(4)">★</span>
         <span class="star" onclick="setRating(5)">★</span>
       </div>
       <button onclick="submitReview()">Submit Review</button>

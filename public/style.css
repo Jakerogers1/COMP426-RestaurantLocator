@@ -11,6 +11,215 @@ h1 {
   font-size: 28px;
 }
 
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.top-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 20px auto;
+}
+
+.right-controls {
+  display: flex;
+  align-items: right;
+  margin-left: flex;
+}
+
+.left-controls {
+  display: flex;
+  align-items: left;
+  margin-right: flex;
+}
+
+input[type="text"] {
+  padding: 8px 10px;
+  margin-left: 5px;
+  margin-right: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+select {
+  margin-left: 5px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+button {
+  background-color: #d32323;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  margin-left: 10px;
+  margin-right: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.main-controls,
+.sort-controls {
+  display: flex;
+  align-items: center; /* Vertical alignment to center */
+}
+
+.main-controls {
+  flex: 3; /* Gives more space to main controls */
+  justify-content: flex-start; /* Aligns items to the left */
+}
+
+.sort-controls {
+  flex: 1; /* Lesser space compared to main controls */
+  justify-content: flex-end; /* Aligns items to the right */
+}
+
+input[type="text"],
+select,
+button {
+  padding: 8px 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.main-controls,
+.sort-controls {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.main-controls {
+  flex-grow: 1; /* Allows it to take up available space */
+}
+
+.sort-controls {
+  flex-grow: 0; /* Keeps sort controls from growing */
+  align-items: flex-end; /* Aligns sort controls to the right */
+}
+
+button,
+select {
+  margin-top: 10px;
+  padding: 8px 15px;
+  border-radius: 15px;
+  border: none;
+  cursor: pointer;
+  background-color: #d32323;
+  color: white;
+}
+
+button:hover {
+  background-color: #b11212;
+}
+
+input[type="text"] {
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.input-group,
+.sort-group {
+  display: flex;
+  align-items: center;
+  margin-right: 10px; /* Adjust spacing between groups */
+}
+
+.top-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+}
+
+.left-controls,
+.right-controls {
+  display: flex;
+  align-items: center;
+}
+
+input[type="text"] {
+  margin-right: 10px;
+  padding: 8px 15px;
+  border-radius: 15px;
+  border: none;
+  cursor: pointer;
+  background-color: white;
+  color: black;
+}
+
+select,
+button {
+  margin-right: 10px;
+  padding: 8px 15px;
+  border-radius: 15px;
+  border: none;
+  cursor: pointer;
+  background-color: #d32323;
+  color: white;
+}
+
+input[type="text"],
+select {
+  width: auto; /* Adjust width as necessary */
+}
+
+button:hover {
+  background-color: #b11212;
+}
+
+button {
+  background-color: #d32323; /* Red color for all buttons */
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  font-size: 0.85rem;
+  border-radius: 12px; /* More rounded corners */
+  cursor: pointer;
+  transition: background-color 0.3s;
+  display: inline-block;
+  text-align: center;
+  margin-top: 5px;
+}
+
+button#sortButton {
+  padding: 5px 10px; /* Smaller padding */
+  font-size: 0.75rem; /* Smaller text */
+  border-radius: 12px; /* Highly rounded */
+}
+
+button:hover {
+  background-color: #b11212; /* Darker red on hover */
+}
+
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    align-items: stretch; /* Ensures full width buttons on smaller screens */
+  }
+  .main-controls,
+  .sort-controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  input[type="text"],
+  select,
+  button {
+    margin-bottom: 10px; /* Adds vertical spacing on smaller screens */
+    width: 100%; /* Full width inputs and buttons on smaller screens */
+  }
+}
+
 .restaurant-card {
   background: #ffffff;
   border-radius: 8px;
@@ -49,14 +258,6 @@ h1 {
 .numeric-rating {
   font-size: 1rem;
   color: #666;
-}
-
-.container {
-  max-width: 800px;
-  margin: auto;
-  background-color: #fff;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  padding: 20px;
 }
 
 header {
@@ -109,7 +310,7 @@ textarea {
 
 .star-rating .star {
   cursor: pointer;
-  color: gray;
+  color: #ffc107;
 }
 
 .rating .filled-stars {
@@ -138,34 +339,28 @@ textarea {
   margin: 5px 0;
 }
 
-button {
-  background-color: #d32323;
-  font-size: 1rem; /* General font size for buttons */
-  border: none;
-  display: inline-block;
-  color: #fff;
-  padding: 10px 15px;
-  border-radius: 3px;
-  text-decoration: none;
-  text-align: center;
-  margin-top: 5px;
-}
-
+/* General button styling */
+button,
+.button,
 .yelp-link {
-  display: inline-block;
-  background-color: #d32323;
-  color: #fff;
-  font-size: 1rem; /* Specific font size for Yelp button */
-  padding: 10px 15px;
-  border-radius: 3px;
-  text-decoration: none;
+  background-color: #d32323; /* Deep red color */
+  color: #fff; /* White text */
+  border: none;
+  padding: 8px 14px; /* Slightly smaller padding */
+  font-size: 0.85rem; /* Smaller font size */
+  border-radius: 15px; /* More rounded corners */
+  cursor: pointer;
+  transition: background-color 0.3s; /* Smooth transition for hover effect */
+  margin: 5px;
+  display: inline-block; /* Ensures proper alignment */
   text-align: center;
-  margin-top: 5px;
-  transition: background-color 0.3s;
 }
 
-button:hover {
-  background-color: #b11212;
+/* Hover effect for all buttons */
+button:hover,
+.button:hover,
+.yelp-link:hover {
+  background-color: #b11212; /* Darker shade on hover */
 }
 
 .like-button,
@@ -175,29 +370,32 @@ button:hover {
   box-shadow: 1px 1px 3px #666;
 }
 
-@media (max-width: 768px) {
-  .container {
-    padding: 10px;
-  }
+/* Making the map view and list view toggle buttons smaller and less obtrusive */
+#toggleMapView {
+  padding: 5px 10px; /* Smaller padding */
+  font-size: 0.75rem; /* Smaller text */
+  border-radius: 12px; /* Highly rounded */
 }
 
 .home-button {
+  background-color: #ffffff; /* White background for the button */
+  color: #b11212; /* Text color to match the header */
+  padding: 5px 10px; /* Padding inside the button */
+  text-decoration: none; /* Remove underline from links */
+  border-radius: 5px; /* Rounded corners for the button */
+  display: inline-flex; /* Make it a flex container to center text inside */
+  align-items: center; /* Center text vertically */
+  justify-content: center; /* Center text horizontally */
   font-size: 16px;
-  color: #b11212;
-  background-color: #ffffff;
-  padding: 5px 10px;
-  position: absolute;
-  text-decoration: none;
-  top: 50%;
-  transform: translateY(-50%);
-  border-radius: 5px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 .home-button:hover {
-  background-color: #b11212;
+  background-color: #b11212; /* Darker red on hover */
+  color: #ffffff; /* White text on hover */
+}
+
+button:hover {
+  background-color: #b11212; /* Darker red on hover */
 }
 
 #map {
@@ -249,4 +447,31 @@ button:hover {
   background-color: transparent;
   color: #333;
   border: 1px solid #333;
+}
+
+.inputs-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+}
+
+button,
+select {
+  padding: 8px 15px;
+  border-radius: 15px;
+  border: none;
+  cursor: pointer;
+  background-color: #d32323;
+  color: white;
+}
+
+button:hover {
+  background-color: #b11212;
+}
+
+input[type="text"] {
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
 }
