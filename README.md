@@ -1,45 +1,49 @@
 # Restaurant Finder App
 
+## Introduction Video
+
+Check out our [introduction video](https://www.canva.com/design/DAGEAReXpwU/0b9Yu48h5R1rw_5fFMwVbw/watch?utm_content=DAGEAReXpwU&utm_campaign=designshare&utm_medium=link&utm_source=editor) to see the app in action and understand its features.
+
 ## Description
 
-This web application allows users to input a city and a category of food (e.g., sushi, Italian). It then retrieves a list of nearby restaurants matching the category using the Yelp Fusion API. The app demonstrates integration with external APIs and backend development with Node.js.
+This web application allows users to search for restaurants by entering a city and a food category (e.g., sushi, Italian). Users can view a list of matching restaurants, see them on a map, and leave reviews. The application uses several APIs to fetch real-time data and provides interactive features like sorting and dark/light mode.
 
 ## APIs Used
 
-- **OpenWeatherMap API**: Used to get the latitude and longitude coordinates for the entered city.
-- **Yelp Fusion API**: Provides data on restaurants, including their location, rating, and category.
+- **OpenWeatherMap API**: Retrieves latitude and longitude coordinates for the entered city.
+- **Yelp Fusion API**: Provides details on restaurants, including location, ratings, and categories.
+- **Google Maps JavaScript API**: Displays the restaurants on a map, enhancing the user interaction by allowing users to visually explore restaurant locations.
 
 ## Setup
 
-1. **Clone the repository**: Execute `git clone` followed by the repository URL to clone it onto your local machine.
-2. **Install dependencies**: In the terminal, navigate to the root directory of the project and run `npm install` to install all required dependencies.
+1. **Clone the repository**: Use `git clone` followed by the repository URL.
+2. **Install dependencies**: Navigate to the project root and execute `npm install`.
 3. **Set up environment variables**:
-   - Create a `.env` file in the root directory.
-   - Add your OpenWeatherMap, Yelp Fusion API and Google Maps JavaScript API Keys to the `.env` file as follows:
+   - Create a `.env` file at the root.
+   - Include the API keys for OpenWeatherMap, Yelp Fusion, and Google Maps as follows:
      ```
-     OPENWEATHERMAP_API_KEY=your_openweathermap_api_key
-     YELP_API_KEY=your_yelp_api_key
-     GOOGLE_MAPS_API_KEY=your_google_maps_api_key
+     OPENWEATHERMAP_API_KEY=<your_key>
+     YELP_API_KEY=<your_key>
+     GOOGLE_MAPS_API_KEY=<your_key>
      ```
-4. **Start the server**: Run `npm start` to launch the server.
-5. **Access the application**: In your web browser, visit `http://localhost:3000` to interact with the app.
+4. **Start the server**: Run `npm start`.
+5. **Access the application**: Visit `http://localhost:3000` in your browser.
+
+## Features
+
+- **Search Functionality**: Users can search for restaurants by city and category. Results can be sorted by distance, rating, or price.
+- **Interactive Map**: Toggle to a map view showing restaurant locations based on search results.
+- **Reviews and Ratings**: Users can leave reviews and rate restaurants using a star system.
+- **Responsive Design**: The app includes a responsive design with a dark/light mode option for enhanced user preference.
 
 ## Running the Application
 
-With the server up and running, use the app by:
-
-- Typing in a city name in the designated field.
-- Selecting or entering a food category.
-- Clicking the "Find Restaurants" button to display a list of matching restaurants, presented in an attractive card layout with options to view more details on Yelp.
-- Clicking the "Map View" button displays a map of the city the user searched for with markers representing the restraunts within the results on "List View". 
-
-## Notes
-
-- The frontend is served statically from the `public` directory.
-- API keys are securely managed through environment variables, ensuring they are not exposed in the frontend code.
-- The app now incorporates a more user-friendly interface, with restaurant information displayed in a modern card-style layout.
+- Input a city and select or type a food category.
+- Use the "Find Restaurants" button to display results.
+- Switch between list and map views for different perspectives of restaurant locations.
+- Leave reviews and rate restaurants directly from the app interface.
 
 ## Future Enhancements
 
-- Provide user authentication for personalized experiences, like saving favorite restaurants or preferences.
-
+- Introduce user authentication for personalized experiences such as saving favorite restaurants or preferences.
+- Improve mobile responsiveness and interactive features for an optimized user experience on various devices.
