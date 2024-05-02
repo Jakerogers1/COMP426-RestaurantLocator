@@ -2,7 +2,7 @@
 
 ## Introduction Video
 
-For a quick overview and demonstration of our Restaurant Finder App, watch our [introduction video](https://www.canva.com/design/DAGEAReXpwU/0b9Yu48h5R1rw_5fFMwVbw/watch?utm_content=DAGEAReXpwU&utm_campaign=designshare&utm_medium=link&utm_source=editor). This video provides a visual guide on how to navigate the app and utilize its features effectively, perfect for new users.
+Check out our [introduction video](https://www.canva.com/design/DAGEAReXpwU/0b9Yu48h5R1rw_5fFMwVbw/watch?utm_content=DAGEAReXpwU&utm_campaign=designshare&utm_medium=link&utm_source=editor) to see the app in action and understand its features.
 
 ## Project Description
 
